@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   db:
@@ -15,24 +15,25 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     command: bash -c "
-        tail -f /dev/null
+        uvicorn backend.main:app
       "
     volumes:
-      - ./backend/:/code
+      - ./backend/:/backend
     ports:
       - "8080:8080"
     depends_on:
       - db
 
   frontend:
+    stdin_open: true
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    command: bash "cd front && npm start"
-    volumes:
-      - .:/code
     ports:
       - 3000:3000
+    volumes:
+    - "/app/node_modules"
+    - "./frontend/:/app"
 
 
 

@@ -28,7 +28,7 @@ def make_app(engine):
 def main():
     from sqlalchemy import create_engine
 
-    engine = create_engine(os.getenv('POSTGRES_CONNECTION_STRING_DEBUG'))
+    engine = create_engine(os.getenv('POSTGRES_CONNECTION_STRING'))
     Base.metadata.create_all(engine)
     return make_app(engine)
 
