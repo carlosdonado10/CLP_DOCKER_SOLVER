@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 54321:5432
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: bash -c "
+        tail -f /dev/null
+      "
+    volumes:
+      - ./backend/:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    command: bash "cd front && npm start"
+    volumes:
+      - .:/code
+    ports:
+      - 3000:3000
+
+
+
