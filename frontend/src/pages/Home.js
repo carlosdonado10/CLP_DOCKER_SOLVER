@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Login from "../components/auth/login";
+import NavbarComponent from "../components/navbarComponent";
 
 class Home extends Component {
     constructor(props) {
@@ -10,17 +10,13 @@ class Home extends Component {
 
     handleSuccessfulAuth(data){
         this.props.handleLogin(data);
-        this.props.history.push("/dashboard")
+        this.props.history.push("/");
     }
 
     render() {
         return (
-            <div>
-                <h1>Home!</h1>
-                <Login
-                    loggedInStatus = {this.props.loggedInStatus}
-                    handleSuccessfulAuth={this.handleSuccessfulAuth}
-                    />
+            <div className={"topnav"}>
+                <NavbarComponent/>
             </div>
         );
     }

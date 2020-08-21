@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
+import Authentication from "./pages/authentication";
 import Home from "./pages/Home";
-import Dashboard from "./pages/dashboard";
 import './App.css';
+import AuthService from "./_services/authService"
+import Boxes from "./pages/boxes";
+import Example from "./components/example";
+
 
 class App extends Component {
     constructor() {
         super();
         this.state ={
             loggedInStatus: false,
-            user: {}
+            user: {},
+            authService: new AuthService()
+
         }
         this.handleLogin = this.handleLogin.bind(this);
     }
@@ -24,27 +30,18 @@ class App extends Component {
 
     render() {
         return (
-      <div className="App">
-        <BrowserRouter>
-            <Switch>
-                <Route exact path={"/"} render={props =>(
-                    <Home {... props}
-                          loggedInStatus={this.state.loggedInStatus}
-                          handleLogin={this.handleLogin}
-
-                    />
-                )}
-                />
-                <Route
-                    exact path={"/Login"}
-                    render={props => (
-                        <Dashboard {...props} loggedInStatus={this.state.loggedInStatus}/>
-                    )}
-                />
-            </Switch>
-        </BrowserRouter>
-      </div>
-  );
+            <div className="App">
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path={"/"} component={Home}/>
+                        <Route exact path={"/login"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'login'}/> )}/>
+                        <Route exact path={"/register"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'register'}/>)}/>
+                        <Route exact path={"/boxes"} component={Boxes}/>
+                        <Route exact path={"/example"} component={Example}/>
+                    </Switch>
+                </BrowserRouter>
+            </div>
+        );
     }
 }
 
