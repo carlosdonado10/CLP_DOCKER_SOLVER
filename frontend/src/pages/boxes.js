@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import NavbarComponent from "../components/navbarComponent";
 import VariableTable from "../components/variable_table";
+import Scene from "../components/scene";
 
 class Boxes extends Component {
     render() {
@@ -12,6 +13,9 @@ class Boxes extends Component {
 
                 <div>
                     <VariableTable/>
+                </div>
+                <div>
+                    <Scene/>
                 </div>
             </div>
         );
