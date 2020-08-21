@@ -16,6 +16,7 @@ def create_db():
     from sqlalchemy import create_engine
 
     engine = create_engine('postgresql://postgres:postgres@db:5432/postgres')
+    # engine = create_engine('postgresql://postgres:postgres@localhost:54321/postgres')
     base.metadata.create_all(engine)
     session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
