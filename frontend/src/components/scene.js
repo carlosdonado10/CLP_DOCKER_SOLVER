@@ -2,80 +2,104 @@ import React, { Component } from 'react'
 import * as THREE from 'three'
 
 class Scene extends Component {
-  constructor(props) {
-    super(props)
+    constructor(props) {
+        super(props)
 
-    this.start = this.start.bind(this)
-    this.stop = this.stop.bind(this)
-    this.animate = this.animate.bind(this)
-  }
+        this.state = {
+            cubes: [],
+            maxX: 0,
+            offset: 0.1
+        }
 
-  componentDidMount() {
-    const width = this.mount.clientWidth
-    const height = this.mount.clientHeight
 
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      width / height,
-      0.1,
-      1000
-    )
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshBasicMaterial({ color: '#433F81' })
-    const cube = new THREE.Mesh(geometry, material)
+            this.start = this.start.bind(this)
+            this.stop = this.stop.bind(this)
+            this.animate = this.animate.bind(this)
+            this.addBoxes = this.addBoxes.bind(this)
+        }
 
-    camera.position.z = 4
-    scene.add(cube)
-    renderer.setClearColor('#000000')
-    renderer.setSize(width, height)
+        addBoxes(boxes){
+            const material = new THREE.MeshBasicMaterial({ color: '#433F81' })
 
-    this.scene = scene
-    this.camera = camera
-    this.renderer = renderer
-    this.material = material
-    this.cube = cube
+            for(let i=0; i<boxes.length; i++){
+                let box = boxes[i];
+                const offset = this.state.maxX + this.state.offset;
+                const geometry = new THREE.BoxGeometry(box.x, box.y, box.z)
+                const cube = new THREE.Mesh(geometry, material)
+                cube.position.set(this.state.maxX + offset, 0, 0)
+                this.scene.add(cube)
+                this.state.cubes.push({"id": box.id, "cube": cube})
+                this.setState({
+                    maxX: parseInt(this.state.maxX) + parseInt(box.x)
+                })
+            }
 
-    this.mount.appendChild(this.renderer.domElement)
-    this.start()
-  }
 
-  componentWillUnmount() {
-    this.stop()
-    this.mount.removeChild(this.renderer.domElement)
-  }
+        }
 
-  start() {
-    if (!this.frameId) {
-      this.frameId = requestAnimationFrame(this.animate)
+        componentDidMount() {
+            const width = this.mount.clientWidth
+            const height = this.mount.clientHeight
+
+            const scene = new THREE.Scene()
+            const camera = new THREE.PerspectiveCamera(
+                75,
+                width / height,
+                0.1,
+                1000
+            )
+            const renderer = new THREE.WebGLRenderer({ antialias: true })
+
+
+            camera.position.z = 4
+
+            renderer.setClearColor('#b6b2b2')
+            renderer.setSize(width, height)
+
+            this.scene = scene
+            this.camera = camera
+            this.renderer = renderer
+
+
+            this.mount.appendChild(this.renderer.domElement)
+            this.start()
+        }
+
+        componentWillUnmount() {
+            this.stop()
+            this.mount.removeChild(this.renderer.domElement)
+        }
+
+        start() {
+            if (!this.frameId) {
+                this.frameId = requestAnimationFrame(this.animate)
+            }
+        }
+
+        stop() {
+            cancelAnimationFrame(this.frameId)
+        }
+
+        animate() {
+            // this.cube.rotation.x += 0.01
+            // this.cube.rotation.y += 0.01
+
+            this.renderScene()
+            this.frameId = window.requestAnimationFrame(this.animate)
+        }
+
+        renderScene() {
+            this.renderer.render(this.scene, this.camera)
+        }
+
+        render() {
+            return (
+                <div className="scenediv"
+                    style={{ width: '1000px', height: '400px' }}
+                    ref={(mount) => { this.mount = mount }}
+                />
+            )
+        }
     }
-  }
 
-  stop() {
-    cancelAnimationFrame(this.frameId)
-  }
-
-  animate() {
-    this.cube.rotation.x += 0.01
-    this.cube.rotation.y += 0.01
-
-    this.renderScene()
-    this.frameId = window.requestAnimationFrame(this.animate)
-  }
-
-  renderScene() {
-    this.renderer.render(this.scene, this.camera)
-  }
-
-  render() {
-    return (
-      <div
-        style={{ width: '400px', height: '400px' }}
-        ref={(mount) => { this.mount = mount }}
-      />
-    )
-  }
-}
-
-export default Scene
+    export default Scene

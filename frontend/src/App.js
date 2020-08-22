@@ -7,6 +7,7 @@ import './App.css';
 import AuthService from "./_services/authService"
 import Boxes from "./pages/boxes";
 import Example from "./components/example";
+import Container from "./pages/container";
 
 
 class App extends Component {
@@ -36,8 +37,9 @@ class App extends Component {
                         <Route exact path={"/"} component={Home}/>
                         <Route exact path={"/login"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'login'}/> )}/>
                         <Route exact path={"/register"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'register'}/>)}/>
-                        <Route exact path={"/boxes"} component={Boxes}/>
+                        <Route exact path={"/boxes"} render={props=> (<Boxes {...props}/>)}/>
                         <Route exact path={"/example"} component={Example}/>
+                        <Route exact path={"/container"} render={props=> (<Container {...props}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
