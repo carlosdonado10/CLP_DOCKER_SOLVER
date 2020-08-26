@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 
 import AddForm from "../components/addForm";
 import RowTable from "../components/rowTable";
-
+import NavbarComponent from "../components/navbarComponent";
 
 class Container extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Container extends Component {
 
     componentDidMount() {
         this.setState({
-            boxes: JSON.parse(localStorage.getItem('boxes'))
+            boxes: JSON.parse(localStorage.getItem('boxes')),
         })
     }
 
@@ -35,30 +35,24 @@ class Container extends Component {
     }
 
     addItem(container){
-        let tempBoxes = Object.assign(this.state.boxes, {});
-        if(this.state.addedContainer) {
-            tempBoxes[tempBoxes.length - 1] = container
-        }else{
-            tempBoxes.push(container)
-        }
+
 
         this.setState({
-                [container['x']]: container.x,
-                [container['y']]: container.y,
-                [container['z']]: container.z,
-                boxes: tempBoxes
+               container: container
             }
         )
     }
 
     submit(){
-        this.props.history.push('/dashboard')
+        this.props.optimizerService.optimize(this.state.boxes, this.state.container);
+        this.props.history.push('/')
     }
 
 
     render() {
         return (
             <div>
+                <NavbarComponent/>
                 <div className={"row"}>
 
                     <Col md={5}>

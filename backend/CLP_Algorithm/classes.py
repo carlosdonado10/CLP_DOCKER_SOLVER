@@ -76,18 +76,18 @@ class AllocatedBox(Box):
         return not (space.x1 >= self.x2[0] or space.x2 <= self.x1[0] or space.y1 >= self.y2[0] or space.y2 <= self.y1[0] or \
                space.z1 >= self.z2[0] or space.z2 <= self.z1[0])
 
-    def __repr__(self):
-        return dumps({
-            "type": self.type,
-            "x": self.x,
-            "y": self.y,
-            "z": self.z,
-            "x1": self.x1[0],
-            "y1": self.y1[0],
-            "z1": self.z1[0],
-            'volume': self.volume,
-            'iteration': self.iteration
-        })
+    # def __repr__(self):
+    #     return ({
+    #         "type": self.type,
+    #         "x": self.x,
+    #         "y": self.y,
+    #         "z": self.z,
+    #         "x1": self.x1[0],
+    #         "y1": self.y1[0],
+    #         "z1": self.z1[0],
+    #         'volume': self.volume,
+    #         'iteration': self.iteration
+    #     })
 
 
 class Space(object):

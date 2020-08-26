@@ -10,9 +10,9 @@ class RowTable extends Component {
         this.renderRows = this.renderRows.bind(this);
     }
 
-    renderRows(row){
+    renderRows(row, i){
         return(
-            <tr>
+            <tr key={i}>
                 <th>
                     {row.id}
                 </th>
@@ -35,12 +35,12 @@ class RowTable extends Component {
     render() {
         let rows = [];
         for(let i=0; i<this.props.boxes.length; i++){
-            rows.push(this.renderRows(this.props.boxes[i]))
+            rows.push(this.renderRows(this.props.boxes[i], i))
         }
 
         return (
             <div>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="md">
                     <thead>
                     <tr>
                         <th>ID</th>

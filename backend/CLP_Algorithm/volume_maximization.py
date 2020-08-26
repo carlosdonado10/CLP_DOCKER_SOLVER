@@ -1,7 +1,7 @@
 from itertools import permutations
 
-from application.Utils.CLP_Algorithm.classes import Box, Space, AllocatedBox
-from application.Utils.CLP_Algorithm.clp_utils import get_container_params, max_items_left, select_space, calculate_fits, \
+from .classes import Box, Space, AllocatedBox
+from .clp_utils import get_container_params, max_items_left, select_space, calculate_fits, \
     get_auxiliary_box_params, reset_counters, get_box_coords, update_spaces, allocated_by_type
 from json import dumps
 #TODO: Enviar cosas a clp_utils y convertir en una clase
@@ -43,9 +43,9 @@ def volume_maximization(problem_params, container_params):
     space_list.append(container)
     auxiliary_container = None
     id_ = 0
-    for idx,i in enumerate(problem_params):
+    for idx, i in enumerate(problem_params):
         lista = []
-        for j in range(i.get('num_items')):
+        for j in range(i.get('numBoxes')):
             id_ += 1
             i.update({'id': id_,
                       'type': idx})
@@ -125,4 +125,3 @@ def volume_maximization(problem_params, container_params):
         cord.append([bx.id, bx.x1, bx.x2, bx.y1, bx.y2, bx.z1, bx.z2])
 
     return allocated_list, utilization, dumps(container.params), dumps(allocated_list_dict)
-

@@ -3,7 +3,8 @@ import Col from 'react-bootstrap/Col'
 
 import NavbarComponent from "../components/navbarComponent";
 import AddForm from "../components/addForm";
-import RowTable from "../components/rowTable"
+import RowTable from "../components/rowTable";
+import './boxes.css'
 
 class Boxes extends Component {
     constructor(props) {
@@ -33,15 +34,21 @@ class Boxes extends Component {
                 <div>
                     <NavbarComponent/>
                 </div>
-            <div className="row">
-                <Col md={4}>
-                    <AddForm addItem={this.addBox} type={"box"} />
-                </Col>
-
-                <Col md={{span: 4, offset: 4}}>
-                    <RowTable boxes={this.state.boxes} submit={this.submit}/>
-                </Col>
-            </div>
+                <div className={"container"}>
+                    <div className="row">
+                        <Col md={4}>
+                            <div className={"main"}>
+                                <AddForm addItem={this.addBox} type={"box"} />
+                                <br/><br/>
+                                <RowTable boxes={this.state.boxes} submit={this.submit}/>
+                            </div>
+                        </Col>
+                        <Col md={{span: 4, offset: 4}}>
+                            <div className={"main"}>
+                            </div>
+                        </Col>
+                    </div>
+                </div>
             </div>
         );
     }

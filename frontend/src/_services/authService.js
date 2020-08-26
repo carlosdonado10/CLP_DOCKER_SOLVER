@@ -28,7 +28,7 @@ class AuthService{
             }
         };
 
-        Axios.post(`${process.env["REAC VCT_APP_BASE_URL"]}/token`,
+        Axios.post(`${process.env["REACT_APP_BASE_URL"]}/token`,
             qs.stringify(requestBody), config
         ).then(response => {
             console.log(response.data)
@@ -39,6 +39,7 @@ class AuthService{
     }
 
     register(state){
+        console.log(`${process.env["REACT_APP_BASE_URL"]}/users`);
         Axios.post(`${process.env["REACT_APP_BASE_URL"]}/users`,
            {
                 username: state.username,

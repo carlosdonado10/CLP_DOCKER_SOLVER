@@ -35,6 +35,7 @@ class Auth extends Component {
     }
 
     handleRegistration(event){
+
         this.props.authService.register(this.state);
         this.props.authService.login(this.state.username, this.state.password);
         this.setState({

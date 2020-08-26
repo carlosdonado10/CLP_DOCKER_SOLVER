@@ -1,7 +1,7 @@
 from itertools import permutations
 import pandas as pd
 from math import floor
-from application.Utils.CLP_Algorithm.classes import Space
+from .classes import Space
 
 
 def reset_counters():

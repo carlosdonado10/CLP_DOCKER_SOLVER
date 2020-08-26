@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 class NavbarComponent extends Component {
     render() {
         return (
-            <div>
+            <div id={"navbarComponent"}>
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="/">CLP Solver</Navbar.Brand>
                     <Nav className="mr-auto">

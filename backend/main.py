@@ -31,6 +31,27 @@ def make_app():
         )
     )
 
+    app.include_router(
+        models.Solution.make_router(
+            Depends(settings.get_db)
+        ),
+        prefix='/solution'
+    )
+
+    app.include_router(
+        models.AllocatedBox.make_router(
+            Depends(settings.get_db)
+        ),
+        prefix='/allocatedBox'
+    )
+
+    app.include_router(
+        models.Container.make_router(
+            Depends(settings.get_db)
+        ),
+        prefix='/Container'
+    )
+
     return app
 
 
@@ -40,5 +61,5 @@ app = make_app()
 
 if __name__ == '__main__':
     import uvicorn
-
+    _ = settings.create_db()
     uvicorn.run(app)

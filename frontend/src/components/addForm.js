@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+// import Table from 'react-bootstrap/Table';
 
 class AddForm extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class AddForm extends Component {
 
     handleChange(event){
         let value = event.target.value;
-        if(event.target.name in ['x', 'y', 'z', 'numBoxes']){
+        if(['x', 'y', 'z', 'numBoxes'].includes(event.target.name)){
             value = parseInt(value);
         }
         this.setState({
@@ -48,6 +49,21 @@ class AddForm extends Component {
     }
     render() {
         return (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div>
                 <Form>
                     <Form.Group>

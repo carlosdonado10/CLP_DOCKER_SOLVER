@@ -15,7 +15,9 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-token-auth": "^1.1.7"
+    "react-token-auth": "^1.1.7",
+    "three": "^0.119.1",
+    "three-orbit-controls": "^82.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
