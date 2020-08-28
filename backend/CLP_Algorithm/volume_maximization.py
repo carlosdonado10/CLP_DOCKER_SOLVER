@@ -43,8 +43,10 @@ def volume_maximization(problem_params, container_params):
     space_list.append(container)
     auxiliary_container = None
     id_ = 0
+    mapping = {}
     for idx, i in enumerate(problem_params):
         lista = []
+        mapping[idx] = (i['id'], i['color'])
         for j in range(i.get('numBoxes')):
             id_ += 1
             i.update({'id': id_,
@@ -124,4 +126,4 @@ def volume_maximization(problem_params, container_params):
     for bx in allocated_list:
         cord.append([bx.id, bx.x1, bx.x2, bx.y1, bx.y2, bx.z1, bx.z2])
 
-    return allocated_list, utilization, dumps(container.params), dumps(allocated_list_dict)
+    return allocated_list, utilization, dumps(container.params), dumps(allocated_list_dict), mapping

@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button'
 
+
 class Auth extends Component {
     constructor(props) {
         super(props);
@@ -68,8 +69,10 @@ class Auth extends Component {
                         <FormControl type="password" name="password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required/>
                     </Form.Group>
                     <Form.Group>
-                        <Button type="submit" onClick={this.handleLogin}>Register!</Button>
+                        <Button type="submit" onClick={this.handleLogin}>Login!</Button>
                     </Form.Group>
+
+
                 </Form>
             </div>
         );
@@ -101,7 +104,7 @@ class Auth extends Component {
                         <Form.Control type="password" name="password_confirmation" placeholder="Enter Your Password Again" onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group>
-                        <Button type="submit" onClick={this.handleRegistration}>Register!</Button>
+                        <Button type="submit" onClick={this.handleRegistration}>Log In!</Button>
                     </Form.Group>
                 </Form>
 

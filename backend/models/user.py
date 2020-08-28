@@ -62,7 +62,7 @@ class User(BaseClass):
                     detail="Incorrect username or password",
                     headers={"WWW-Authenticate": "Bearer"},
                 )
-            access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+            access_token_expires = timedelta(days=1)  # USE MINUTES FROM SETTINGS
             access_token = auth_utils.create_access_token(
                 data={"sub": user.username}, expires_delta=access_token_expires
             )
