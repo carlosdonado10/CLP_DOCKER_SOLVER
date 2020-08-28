@@ -14,11 +14,20 @@ class Boxes extends Component {
         }
         this.addBox = this.addBox.bind(this);
         this.submit = this.submit.bind(this);
+        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
     addBox(box){
         let boxes = Object.assign(this.state.boxes, {});
         boxes.push(box);
+        this.setState({
+            boxes: boxes
+        })
+    }
+
+    handleColorChange(i, color){
+        let boxes = Object.assign(this.state.boxes, []);
+        boxes[i].color = color
         this.setState({
             boxes: boxes
         })
@@ -32,23 +41,20 @@ class Boxes extends Component {
         return (
             <div>
                 <div>
-                    <NavbarComponent/>
+                    <NavbarComponent pushLogin={this.props.pushLogin}/>
                 </div>
-                <div className={"container"}>
-                    <div className="row">
-                        <Col md={4}>
-                            <div className={"main"}>
-                                <AddForm addItem={this.addBox} type={"box"} />
-                                <br/><br/>
-                                <RowTable boxes={this.state.boxes} submit={this.submit}/>
-                            </div>
-                        </Col>
-                        <Col md={{span: 4, offset: 4}}>
-                            <div className={"main"}>
-                            </div>
-                        </Col>
-                    </div>
+                <br/>
+                <div className="row">
+                    <Col md={{span: 4, offset: 1}}>
+                        <h2>Add Boxes</h2>
+                        <AddForm addItem={this.addBox} type={"box"} />
+                    </Col>
+                    <Col md={{span: 5, offset: 1}}>
+                        <h2>Current Schema</h2>
+                        <RowTable boxes={this.state.boxes} submit={this.submit} handleColorChange={this.handleColorChange} type={"box"}/>
+                    </Col>
                 </div>
+
             </div>
         );
     }

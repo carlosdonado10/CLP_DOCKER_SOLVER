@@ -44,22 +44,26 @@ class Container extends Component {
     }
 
     submit(){
-        this.props.optimizerService.optimize(this.state.boxes, this.state.container);
-        this.props.history.push('/')
+        this.props.optimizerService.optimize(this.state.boxes, this.state.container, this.props.history);
+
     }
 
 
     render() {
         return (
             <div>
-                <NavbarComponent/>
+                <NavbarComponent pushLogin={this.props.pushLogin}/>
+                <br/>
                 <div className={"row"}>
 
-                    <Col md={5}>
+                    <Col md={{span:4, offset: 1}}>
+                        <h2>Configure Container Dimensions</h2>
                         <AddForm type={"container"} addItem={this.addItem}/>
                     </Col>
-                    <Col md={{span:4, offset: 3}}>
-                        <RowTable boxes={this.state.boxes}  submit={this.submit}/>
+                    <Col md={{span:4, offset: 2}}>
+                        <h2>Current Schema</h2>
+                        <br/>
+                        <RowTable boxes={this.state.boxes} container={this.state.container}  submit={this.submit} type={"container"}/>
                     </Col>
                 </div>
             </div>

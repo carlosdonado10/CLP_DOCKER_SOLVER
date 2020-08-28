@@ -32,7 +32,6 @@ class SolutionForm extends Component {
 
     handleChange(event){
         // Name stores the position of the selected solution in this.state.solutions
-        alert(event.target.name);
         this.props.handleSolutionChange(this.state.solutions[event.target.name])
     }
 

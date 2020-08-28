@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 // import Table from 'react-bootstrap/Table';
 
@@ -9,10 +8,11 @@ class AddForm extends Component {
         super(props);
         this.state = {
             id: "",
-            x: 0,
-            y: 0,
-            z: 0,
-            numBoxes: 0
+            x: "",
+            y: "",
+            z: "",
+            numBoxes: "",
+            color: {'rgb': {'r':0, 'g':0, 'b':0, 'a':0}}
         }
         this.addRow = this.addRow.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -40,6 +40,9 @@ class AddForm extends Component {
 
     handleChange(event){
         let value = event.target.value;
+        if(value===null){
+            value="";
+        }
         if(['x', 'y', 'z', 'numBoxes'].includes(event.target.name)){
             value = parseInt(value);
         }
@@ -50,79 +53,70 @@ class AddForm extends Component {
     render() {
         return (
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div>
                 <Form>
                     <Form.Group>
-                        <Form.Row>
-                            <Col>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="ID"
-                                    name="id"
-                                    value={this.props.type === "box" ? this.state.id : "Container"}
-                                    onChange={this.handleChange}
-                                    disabled={this.props.type !== "box"}
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Length (x)"
-                                    name="x"
-                                    value={this.state.x}
-                                    onChange={this.handleChange}
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Width (y)"
-                                    name="y"
-                                    value={this.state.y}
-                                    onChange={this.handleChange}/>
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Height (z)"
-                                    name="z"
-                                    value={this.state.z}
-                                    onChange={this.handleChange}
-
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Number of boxes"
-                                    name="numBoxes"
-                                    value={this.props.type ==="box" ? this.state.numBoxes: 1}
-                                    onChange={this.handleChange}
-                                    disabled={this.props.type !== "box"}
-                                />
-                            </Col>
-                        </Form.Row>
+                        <Form.Label>Box Name</Form.Label>
+                        <Form.Control
+                            type={"text"}
+                            name="id"
+                            placeholder="Enter box name"
+                            value={this.props.type === 'box' ? this.state.id : "Container"}
+                            onChange={this.handleChange}
+                            disabled={this.props.type !== "box"}
+                        />
                     </Form.Group>
-                    <Form.Row>
-                        <Button variant="primary" type="button" onClick={this.addRow}>
-                            Add {this.props.type}
-                        </Button>
-                    </Form.Row>
+                    <Form.Group>
+                        <Form.Label>Length (x)</Form.Label>
+                        <Form.Control
+                            type="number"
+                            step='0.01'
+                            placeholder="Enter Box Length"
+                            value={this.state.x}
+                            name="x"
+                            onChange={this.handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Width (y)</Form.Label>
+                        <Form.Control
+                            type="number"
+                            step='0.01'
+                            placeholder="Enter Box Width"
+                            value={this.state.y}
+                            name="y"
+                            onChange={this.handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Height (z)</Form.Label>
+                        <Form.Control
+                            type="number"
+                            step='0.01'
+                            placeholder="Enter Box Height"
+                            value={this.state.z}
+                            name="z"
+                            onChange={this.handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Number of Boxes</Form.Label>
+                        <Form.Control
+                            type="number"
+                            step='0.01'
+                            placeholder="Enter the Number of Boxes"
+                            value={this.props.type === 'box' ? this.state.numBoxes : 1}
+                            name="numBoxes"
+                            onChange={this.handleChange}
+                            disabled={this.props.type !=="box"}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Button variant="primary" onClick={this.addRow}>Submit</Button>
+                    </Form.Group>
+
                 </Form>
+
             </div>
         );
     }

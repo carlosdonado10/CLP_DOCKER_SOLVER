@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Auth from "../components/auth";
 import NavbarComponent from "../components/navbarComponent";
+import Col from 'react-bootstrap/Col'
 
 class Authentication extends Component {
     constructor(props) {
@@ -11,24 +12,26 @@ class Authentication extends Component {
 
     handleSuccessfulAuth(data){
         this.props.handleLogin(data);
-        this.props.history.push("/")
+        this.props.history.push('/')
+
     }
 
     render() {
         return (
             <div>
                 <div>
-                    <NavbarComponent/>
+                    <NavbarComponent pushLogin={this.props.pushLogin}/>
                 </div>
-                <div className={"formdiv"}>
+                <Col md={{ span: 4, offset: 4}}>
 
                     <Auth
                         loggedInStatus = {this.props.loggedInStatus}
                         handleSuccessfulAuth={this.handleSuccessfulAuth}
                         authService={this.props.authService}
                         type={this.props.type}
+                        history ={this.props.history}
                     />
-                </div>
+                </Col>
             </div>
         );
     }

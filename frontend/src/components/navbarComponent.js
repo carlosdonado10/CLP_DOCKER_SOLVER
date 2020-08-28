@@ -1,11 +1,22 @@
 import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
 
 class NavbarComponent extends Component {
+    constructor() {
+        super();
+        this.logout = this.logout.bind(this);
+    }
+
+    logout(){
+        localStorage.removeItem('login');
+        // this.props.pushLogin();
+    }
+
+
+
     render() {
         return (
             <div id={"navbarComponent"}>
@@ -17,9 +28,9 @@ class NavbarComponent extends Component {
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-primary">Search</Button>
+                         <Button variant="outline-success" onClick={this.logout}>LogOut</Button>
                     </Form>
+
                 </Navbar>
             </div>
         );

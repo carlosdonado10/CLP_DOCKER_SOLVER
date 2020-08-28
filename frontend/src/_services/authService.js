@@ -15,7 +15,7 @@ class AuthService{
         return localStorage.getItem('token') != null;
     }
 
-    login(username, password){
+    login(username, password, history){
         var qs = require('qs');
 
         const requestBody = {
@@ -28,17 +28,12 @@ class AuthService{
             }
         };
 
-        Axios.post(`${process.env["REACT_APP_BASE_URL"]}/token`,
+        return Axios.post(`${process.env["REACT_APP_BASE_URL"]}/token`,
             qs.stringify(requestBody), config
-        ).then(response => {
-            console.log(response.data)
-            localStorage.setItem('login', JSON.stringify(response.data));
-        }).catch(er=>{
-            console.warn(er);
-        })
+        )
     }
 
-    register(state){
+    register(state, username, password, history){
         console.log(`${process.env["REACT_APP_BASE_URL"]}/users`);
         Axios.post(`${process.env["REACT_APP_BASE_URL"]}/users`,
            {
@@ -48,7 +43,7 @@ class AuthService{
                 password: state.password
             }
         ).then(response => {
-            console.log(response);
+            this.login(username, password, history)
         }).catch(err=>{
             console.warn(err);
         })
