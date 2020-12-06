@@ -6,13 +6,13 @@ class AuthService{
         const token = JSON.parse(localStorage.getItem('login'));
         return {
             headers:{
-                'Authorization': 'Bearer ' + token.access_token
+                'Authorization': 'Bearer ' + 'token.access_token'
             }
         }
     }
 
     is_logged(localStorage){
-        return localStorage.getItem('token') != null;
+        return true;
     }
 
     login(username, password, history){
@@ -34,8 +34,9 @@ class AuthService{
     }
 
     register(state, username, password, history){
-        console.log(`${process.env["REACT_APP_BASE_URL"]}/users`);
-        Axios.post(`${process.env["REACT_APP_BASE_URL"]}/users`,
+        console.log(`http://localhost:8080/users`);
+        debugger;
+        Axios.post(`http://localhost:8080/users`,
            {
                 username: state.username,
                 email: state.email,

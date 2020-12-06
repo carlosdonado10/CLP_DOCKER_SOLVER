@@ -1,38 +1,43 @@
 from itertools import permutations
 
-from .classes import Box, Space, AllocatedBox
-from .clp_utils import get_container_params, max_items_left, select_space, calculate_fits, \
+from backend.CLP_Algorithm.classes import Box, Space, AllocatedBox
+from backend.CLP_Algorithm.clp_utils import get_container_params, max_items_left, select_space, calculate_fits, \
     get_auxiliary_box_params, reset_counters, get_box_coords, update_spaces, allocated_by_type
 from json import dumps
+from time import time
 #TODO: Enviar cosas a clp_utils y convertir en una clase
 
-problem_params = [
-    {
-        'num_items': 100,
-        'x': 50,
-        'y': 30,
-        'z': 60
-    },
-    {
-        'num_items': 100,
-        'x': 40,
-        'y': 50,
-        'z': 30
-    },
-    {
-        'num_items': 100,
-        'x': 90,
-        'y': 40,
-        'z': 50
-    },
-    {
-        'num_items': 100,
-        'x': 30,
-        'y': 80,
-        'z': 20
-    }
-]
-container_params = get_container_params(233, 587, 220)
+# problem_params = [
+#     {
+#         'id': 1,
+#         'numBoxes': 100,
+#         'x': 50,
+#         'y': 30,
+#         'z': 60
+#     },
+#     {
+#         'id': 2,
+#         'numBoxes': 100,
+#         'x': 40,
+#         'y': 50,
+#         'z': 30
+#     },
+#     {
+#         'id': 3,
+#         'numBoxes': 100,
+#         'x': 90,
+#         'y': 40,
+#         'z': 50
+#     },
+#     {
+#         'id': 4,
+#         'numBoxes': 100,
+#         'x': 30,
+#         'y': 80,
+#         'z': 20
+#     }
+# ]
+# container_params = get_container_params(233, 587, 220)
 
 
 def volume_maximization(problem_params, container_params):
@@ -53,7 +58,7 @@ def volume_maximization(problem_params, container_params):
                       'type': idx})
             lista.append(Box(**i))
         item_list.append(lista)
-
+    t = time()
     num_iter = 0
     while max_items_left(item_list) > 0 and len(space_list) > 0:
         best_choice_local, best_choice, tipo_elegido, allocated_volume = None, None, None, 0
@@ -94,7 +99,7 @@ def volume_maximization(problem_params, container_params):
             for idx, bx in enumerate(item_list[tipo_elegido]):
                 if idx >= best_choice['max_items']:
                     break
-                item_list[tipo_elegido][idx].rotate_to(best_choice.get('rotation'))
+                # item_list[tipo_elegido][idx].rotate_to(best_choice.get('rotation'))
                 al_params = get_box_coords(selected_space, item_list[tipo_elegido][idx], counters, ax)
                 al_params.update({'type': bx.type,
                                   'num_iter': num_iter})
@@ -121,7 +126,9 @@ def volume_maximization(problem_params, container_params):
     allocated_list_dict = [i.params for i in allocated_list if i.id != 'auxiliary box']
 
     utilization = sum(map(lambda x: x.volume if x.id != 'auxiliary box' else 0, allocated_list))/container.volume
+    # return [utilization, time()-t]
 
+    print(f'utilization: {utilization}')
     cord = []
     for bx in allocated_list:
         cord.append([bx.id, bx.x1, bx.x2, bx.y1, bx.y2, bx.z1, bx.z2])

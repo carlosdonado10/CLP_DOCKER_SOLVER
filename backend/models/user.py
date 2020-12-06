@@ -38,8 +38,8 @@ class User(BaseClass):
         router = APIRouter()
 
         @router.get("/users/me/", response_model=cls)
-        async def read_users_me(user: cls = Depends(get_current_active_user)):
-            return user
+        async def read_users_me(db: Session = db):
+            return db.query(User.SqlTable).first()
 
         @router.post("/users/")
         async def add_user(payload: User, db: Session = db):

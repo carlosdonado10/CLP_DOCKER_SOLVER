@@ -2,10 +2,11 @@ import Axios from "axios";
 
 class SolutionsService {
     constructor() {
-        this.url = `${process.env["REACT_APP_BASE_URL"]}/solution`
-        this.urlBoxes = `${process.env["REACT_APP_BASE_URL"]}/allocatedBox`
-        this.urlContainer = `${process.env["REACT_APP_BASE_URL"]}/Container`
-        this.url_user = `${process.env["REACT_APP_BASE_URL"]}/users/me`
+        let url = "http://localhost:8080"
+        this.url = `${url}/solution`
+        this.urlBoxes = `${url}/allocatedBox`
+        this.urlContainer = `${url}/Container`
+        this.url_user = `${url}/users/me`
     }
 
     optimize(boxes, container, history) {
@@ -15,7 +16,7 @@ class SolutionsService {
         delete container.color
         let config = {
             headers: {
-                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc'
             }
         }
 
@@ -42,7 +43,8 @@ class SolutionsService {
     getUserId() {
         let config = {
             headers: {
-                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc'
+                    // + JSON.parse(localStorage.getItem('login')).access_token
             }
         }
         return Axios.get(this.url_user, config)
@@ -51,7 +53,7 @@ class SolutionsService {
     getSolutions(user_id) {
         let config = {
             headers: {
-                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc'
             }
         }
         return (Axios.get(`${this.url}/${user_id}`, config))
@@ -60,7 +62,8 @@ class SolutionsService {
     getSolutionBoxes(solutionId) {
         let config = {
             headers: {
-                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
+                // 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
+                'Authorization': 'Bearer ' +  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc"
             }
         }
         return Axios.all(

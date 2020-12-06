@@ -87,10 +87,11 @@ class Solution(BaseClass):
             except Exception as e:
                 raise e
 
+
+
         @router.get('/maxIteration/{solution_id}')
         def get_num_iterations(solution_id: int, db: Session = db, token: str = Depends(settings.oauth2_scheme)):
             return db.query(func.max(AllocatedBox.model().iteration)).filter(AllocatedBox.model().solution_id==solution_id).first()
-
 
         return router
 

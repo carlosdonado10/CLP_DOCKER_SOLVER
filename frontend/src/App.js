@@ -46,22 +46,23 @@ class App extends Component {
                     <Switch>
                         <Route exact path={"/login"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'login'}/> )}/>
                         <Route exact path={"/register"} render={props => (<Authentication {...props} handleLogin={this.handleLogin} authService={this.state.authService} type={'register'}/>)}/>
-
-                        <ProtectedRoute
+                        <Route exact path={"/boxes"} render={props=> (<Boxes {...props} pushLogin={this.pushLogin} />)}/>
+                        <Route exact path={"/container"} render={props=> (<Container {...props} optimizerService={this.state.solutionService} pushLogin={this.pushLogin} />)}/>
+                        <Route
                             exact
                             path={"/"}
                             component={() => <Home solutionService={this.state.solutionService} pushLogin={this.pushLogin} {...this.props}/>}
                         />
-                        <ProtectedRoute
-                            exact
-                            path={"/boxes"}
-                            component={() => <Boxes {...this.props} pushLogin={this.pushLogin} />}
-                        />
-                        <ProtectedRoute
-                            exact
-                            path={"/container"}
-                            component={() => <Container {...this.props} optimizerService={this.state.solutionService} pushLogin={this.pushLogin} />}
-                        />
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path={"/boxes"}*/}
+                        {/*    component={() => <Boxes {...this.props} pushLogin={this.pushLogin} />}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path={"/container"}*/}
+                        {/*    component={() => <Container {...this.props} optimizerService={this.state.solutionService} pushLogin={this.pushLogin} />}*/}
+                        {/*/>*/}
                     </Switch>
                 </BrowserRouter>
             </div>
