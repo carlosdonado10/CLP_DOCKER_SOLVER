@@ -2,6 +2,7 @@ from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
 base = declarative_base()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
@@ -14,8 +15,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_db():
     from sqlalchemy import create_engine
+    user = os.getenv('user')
+    password = os.getenv('password')
+    host = os.getenv('host')
+    port = os.getenv('port')
+    db_name = os.getenv('db_name')
 
-    engine = create_engine('postgresql://postgres:postgres@db:5432/postgres')
+    connection_string = f'postgresql://{user}:{password}@{host}:{port}/{db_name}'
+
+    engine = create_engine(connection_string)
     # engine = create_engine('postgresql://postgres:postgres@localhost:54321/postgres')
     base.metadata.create_all(engine)
     session = sessionmaker(autocommit=False, autoflush=False, bind=engine)

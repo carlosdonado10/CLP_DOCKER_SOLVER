@@ -2,9 +2,9 @@ from typing import List
 
 import pandas as pd
 from fastapi import Depends, APIRouter
-from scipy import stats
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import Session
+from statistics import mode
 
 from backend import settings
 from backend.models.base import BaseClass
@@ -67,7 +67,7 @@ class AllocatedBox(BaseClass):
 
             number_by_type = allocated_boxes.groupby('type')
             number_by_type = number_by_type.agg({
-                'color': stats.mode,
+                'color': statistics.mode,
             })
 
             number_by_type = pd.DataFrame(parse_list(number_by_type['color'].tolist()), index=number_by_type.index).reset_index()
