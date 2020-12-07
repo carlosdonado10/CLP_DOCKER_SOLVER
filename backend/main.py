@@ -1,9 +1,13 @@
 # from dotenv import load_dotenv
 
 from fastapi import FastAPI, Depends
+from fastapi.responses import Response
+from fastapi.requests import Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+import os
+import traceback
 
 
 from backend import models
@@ -25,6 +29,27 @@ def make_app():
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    @app.middleware("http")
+    async def logging_middleware(request: Request, call_next, first=True):
+        try:
+            response: Response = await call_next(request)
+        except Exception as e:
+            # if first:
+            #     response: Response = await logging_middleware(request, call_next, False)
+            # else:
+            response = Response(
+                # Sends one-liner as error message (Exception message)
+                content=str(e),
+                # Sends n-lines of Traceback in response message
+                # content=os.linesep.join(traceback.format_exc().splitlines()[-5:]),
+                media_type='text/plain',
+                status_code=500
+            )
+
+            # Prints traceback to container logs
+            print(os.linesep.join(traceback.format_exc().splitlines()[-10:]))
+        return response
 
     app.include_router(
         models.User.make_router(
