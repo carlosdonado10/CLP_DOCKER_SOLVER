@@ -1,6 +1,5 @@
-from itertools import permutations
-import pandas as pd
 from math import floor
+
 from .classes import Space
 
 

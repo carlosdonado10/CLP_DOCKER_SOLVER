@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
 from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import Session
 
-from backend.models.base import BaseClass
 from backend import settings
+from backend.models.base import BaseClass
 
 
 class Container(BaseClass):

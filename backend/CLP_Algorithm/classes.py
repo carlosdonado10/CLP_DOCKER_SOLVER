@@ -1,4 +1,3 @@
-from json import dumps
 from itertools import permutations
 
 rotations = list()

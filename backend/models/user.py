@@ -1,15 +1,16 @@
-from pydantic import BaseModel
 from typing import Optional
+from datetime import timedelta
+from typing import Optional
+
+from fastapi import Depends, APIRouter, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from jose import jwt, JWTError
 from sqlalchemy import Column, String, Integer, Boolean
 from sqlalchemy.orm import Session
-from fastapi import Depends, APIRouter, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from jose import jwt, JWTError
-from datetime import timedelta
 
 from backend import settings
-from backend.models.base import BaseClass
 from backend.auth import utils as auth_utils
+from backend.models.base import BaseClass
 
 
 class User(BaseClass):

@@ -1,10 +1,12 @@
 from itertools import permutations
-
-from backend.CLP_Algorithm.classes import Box, Space, AllocatedBox
-from backend.CLP_Algorithm.clp_utils import get_container_params, max_items_left, select_space, calculate_fits, \
-    get_auxiliary_box_params, reset_counters, get_box_coords, update_spaces, allocated_by_type
 from json import dumps
 from time import time
+
+from backend.CLP_Algorithm.classes import Box, Space, AllocatedBox
+from backend.CLP_Algorithm.clp_utils import max_items_left, select_space, calculate_fits, \
+    get_auxiliary_box_params, reset_counters, get_box_coords, update_spaces
+
+
 #TODO: Enviar cosas a clp_utils y convertir en una clase
 
 # problem_params = [

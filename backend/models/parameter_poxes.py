@@ -1,8 +1,8 @@
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import Session
 
-from backend.models.base import BaseClass
 from backend import settings
-from sqlalchemy import Column, Integer, String, Float
+from backend.models.base import BaseClass
 
 
 class ParameterBox(BaseClass):

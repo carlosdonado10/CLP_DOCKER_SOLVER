@@ -1,13 +1,15 @@
 from typing import List
-from fastapi import Depends, APIRouter
-from sqlalchemy.orm import Session
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
-import pandas as pd
-from scipy import stats
 
-from backend.models.base import BaseClass
+import pandas as pd
+from fastapi import Depends, APIRouter
+from scipy import stats
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import Session
+
 from backend import settings
+from backend.models.base import BaseClass
 from backend.models.parameter_poxes import ParameterBox
+
 
 class AllocatedBox(BaseClass):
     solution_id: int

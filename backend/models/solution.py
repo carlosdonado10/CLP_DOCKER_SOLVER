@@ -1,18 +1,17 @@
-from backend.models.base import BaseClass
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session, relationship
-from sqlalchemy import Column, Integer, DateTime, Float, String, func
-from typing import List, Dict, Any
 from datetime import datetime
 from time import time
-import pandas as pd
+from typing import Dict, Any
 
+from fastapi import APIRouter, Depends
+from sqlalchemy import Column, Integer, DateTime, Float, String, func
+from sqlalchemy.orm import Session, relationship
 
+from backend import settings
 from backend.CLP_Algorithm.volume_maximization import volume_maximization
 from backend.models.allocated_box import AllocatedBox
+from backend.models.base import BaseClass
 from backend.models.container import Container
 from backend.models.parameter_poxes import ParameterBox
-from backend import settings
 
 
 class Solution(BaseClass):

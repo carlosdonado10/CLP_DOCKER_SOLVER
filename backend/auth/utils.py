@@ -1,7 +1,8 @@
-from pydantic import BaseModel
 from datetime import datetime, timedelta
 from typing import Optional
+
 from jose import jwt
+from pydantic import BaseModel
 
 from backend.settings import *
 
