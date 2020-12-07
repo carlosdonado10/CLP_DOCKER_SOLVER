@@ -5,7 +5,7 @@ def make_router():
 
     router = APIRouter()
 
-    @router.get('environment')
+    @router.get('/environment')
     def environment():
         return os.environ
 
