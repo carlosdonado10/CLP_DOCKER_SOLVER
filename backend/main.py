@@ -35,14 +35,9 @@ def make_app():
         try:
             response: Response = await call_next(request)
         except Exception as e:
-            # if first:
-            #     response: Response = await logging_middleware(request, call_next, False)
-            # else:
             response = Response(
-                # Sends one-liner as error message (Exception message)
-                content=str(e),
                 # Sends n-lines of Traceback in response message
-                # content=os.linesep.join(traceback.format_exc().splitlines()[-5:]),
+                content=os.linesep.join(traceback.format_exc().splitlines()),
                 media_type='text/plain',
                 status_code=500
             )
