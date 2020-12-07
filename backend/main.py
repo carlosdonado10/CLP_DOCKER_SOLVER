@@ -7,6 +7,7 @@ from pathlib import Path
 
 
 from backend import models
+from backend.models import debugging
 from backend import settings
 
 
@@ -51,6 +52,11 @@ def make_app():
             Depends(settings.get_db)
         ),
         prefix='/Container'
+    )
+
+    app.include_router(
+        debugging.make_router(),
+        prefix='/debugging'
     )
 
     app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="frontend")

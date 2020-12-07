@@ -18,14 +18,14 @@ def create_db():
     user = os.getenv('user')
     password = os.getenv('password')
     host = os.getenv('host')
-    port = os.getenv('port')
+    port = str(os.getenv('port'))
     db_name = os.getenv('db_name')
-
-    connection_string = f'postgresql://{user}:{password}@{host}:{port}/{db_name}'
+    connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}?sslmode=require'
 
     engine = create_engine(connection_string)
-    # engine = create_engine('postgresql://postgres:postgres@localhost:54321/postgres')
-    base.metadata.create_all(engine)
+
+    # Tables are already there :)
+    # base.metadata.create_all(engine)
     session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
     return session
