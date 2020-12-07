@@ -2,6 +2,9 @@
 
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
 
 from backend import models
 from backend import settings
@@ -49,6 +52,8 @@ def make_app():
         ),
         prefix='/Container'
     )
+
+    app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="frontend")
 
     return app
 
