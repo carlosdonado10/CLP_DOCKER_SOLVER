@@ -64,8 +64,6 @@ def make_app():
     return app
 
 
-
-
 app = make_app()
 
 if __name__ == '__main__':
