@@ -79,7 +79,7 @@ def make_app():
         prefix='/debugging'
     )
 
-    # app.mount("/", StaticFiles(directory=Path(__file__).parent / "build", html=True), name="frontend")
+    app.mount("/", StaticFiles(directory=Path(__file__).parent / "build", html=True), name="frontend")
 
     return app
 

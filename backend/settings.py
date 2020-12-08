@@ -15,10 +15,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_db():
     from sqlalchemy import create_engine
-    user = os.getenv('user')
-    password = os.getenv('password')
-    host = os.getenv('host')
-    port = str(os.getenv('port'))
+    user = os.getenv('db_user')
+    password = os.getenv('db_password')
+    host = os.getenv('db_host')
+    port = str(os.getenv('db_port'))
     db_name = os.getenv('db_name')
     connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}?sslmode=require'
 
