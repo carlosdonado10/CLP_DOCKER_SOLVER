@@ -3,10 +3,10 @@ import Axios from "axios";
 class AuthService{
 
     getTokenHeaders(localStorage){
-        const token = JSON.parse(localStorage.getItem('login'));
+        // const token = JSON.parse(localStorage.getItem('login'));
         return {
             headers:{
-                'Authorization': 'Bearer ' + 'token.access_token'
+                'Authorization': 'Bearer token.access_token'
             }
         }
     }

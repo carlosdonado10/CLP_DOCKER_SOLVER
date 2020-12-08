@@ -56,14 +56,14 @@ class SolutionsService {
                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc'
             }
         }
-        return (Axios.get(`${this.url}/${user_id}`, config))
+        return (Axios.get(`${this.url}/`, config))
     }
 
     getSolutionBoxes(solutionId) {
         let config = {
             headers: {
                 // 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('login')).access_token
-                'Authorization': 'Bearer ' +  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc"
+                'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc"
             }
         }
         return Axios.all(
