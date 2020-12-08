@@ -30,21 +30,21 @@ def make_app():
         allow_headers=["*"],
     )
 
-    @app.middleware("http")
-    async def logging_middleware(request: Request, call_next, first=True):
-        try:
-            response: Response = await call_next(request)
-        except Exception as e:
-            response = Response(
-                # Sends n-lines of Traceback in response message
-                content=os.linesep.join(traceback.format_exc().splitlines()),
-                media_type='text/plain',
-                status_code=500
-            )
-
-            # Prints traceback to container logs
-            print(os.linesep.join(traceback.format_exc().splitlines()[-10:]))
-        return response
+    # @app.middleware("http")
+    # async def logging_middleware(request: Request, call_next, first=True):
+    #     try:
+    #         response: Response = await call_next(request)
+    #     except Exception as e:
+    #         response = Response(
+    #             # Sends n-lines of Traceback in response message
+    #             content=os.linesep.join(traceback.format_exc().splitlines()),
+    #             media_type='text/plain',
+    #             status_code=500
+    #         )
+    #
+    #         # Prints traceback to container logs
+    #         print(os.linesep.join(traceback.format_exc().splitlines()[-10:]))
+    #     return response
 
     app.include_router(
         models.User.make_router(
@@ -79,7 +79,7 @@ def make_app():
         prefix='/debugging'
     )
 
-    app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="frontend")
+    # app.mount("/", StaticFiles(directory=Path(__file__).parent / "build", html=True), name="frontend")
 
     return app
 
