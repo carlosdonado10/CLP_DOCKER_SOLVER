@@ -16,7 +16,7 @@ from backend.models.parameter_poxes import ParameterBox
 
 class Solution(BaseClass):
     name: str
-    user_id: int
+    user_id: int = 1
     timestamp: datetime
     utilization: float
     execution_time: float
@@ -46,11 +46,11 @@ class Solution(BaseClass):
         router = APIRouter()
 
         @router.get('/{user_id}')
-        def get_solutons(user_id: int, db: Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def get_solutons(user_id: int, db: Session = db):
             return db.query(cls.model()).filter(cls.model().user_id == user_id).all()
 
         @router.post('/', response_model=Any)
-        def optimize(payload: Dict[str, Any], db: Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def optimize(payload: Dict[str, Any], db: Session = db):
             try:
                 raw_payload = payload.copy()
                 names = get_box_names(raw_payload['boxes'])
@@ -89,7 +89,7 @@ class Solution(BaseClass):
 
 
         @router.get('/maxIteration/{solution_id}')
-        def get_num_iterations(solution_id: int, db: Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def get_num_iterations(solution_id: int, db: Session = db):
             return db.query(func.max(AllocatedBox.model().iteration)).filter(AllocatedBox.model().solution_id==solution_id).first()
 
         return router

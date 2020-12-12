@@ -3,10 +3,10 @@ import Axios from "axios";
 class SolutionsService {
     constructor() {
         let url = "http://localhost:8080"
-        this.url = `${url}/solution`
+        this.url = `${url}/solution/`
         this.urlBoxes = `${url}/allocatedBox`
         this.urlContainer = `${url}/Container`
-        this.url_user = `${url}/users/me`
+        this.url_user = `${url}/users/me/`
     }
 
     optimize(boxes, container, history) {
@@ -56,7 +56,7 @@ class SolutionsService {
                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXJsb3Nkb25hZG8iLCJleHAiOjE2MDcyNzY3MDJ9.Q9EgKOYwZWq6pVBw3OCD8fh2G-USgsss28lp7UafUIc'
             }
         }
-        return (Axios.get(`${this.url}/`, config))
+        return (Axios.get(`${this.url}1`, config))
     }
 
     getSolutionBoxes(solutionId) {
@@ -71,7 +71,7 @@ class SolutionsService {
                 Axios.get(`${this.urlBoxes}/${solutionId}`, config),
                 Axios.get(`${this.urlContainer}/${solutionId}`, config),
                 Axios.get(`${this.urlBoxes}/summary/${solutionId}`, config),
-                Axios.get(`${this.url}/maxIteration/${solutionId}`, config)
+                Axios.get(`${this.url}maxIteration/${solutionId}`, config)
             ]
         )
     }

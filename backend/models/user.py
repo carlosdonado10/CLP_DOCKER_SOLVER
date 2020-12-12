@@ -40,7 +40,7 @@ class User(BaseClass):
 
         @router.get("/users/me/", response_model=cls)
         async def read_users_me(db: Session = db):
-            return db.query(User.SqlTable).first()
+            return User(username='Admin', email='', full_name='admin')
 
         @router.post("/users/")
         async def add_user(payload: User, db: Session = db):
@@ -87,7 +87,7 @@ def get_user(db: Session, username: str):
         return User.from_orm(user)
 
 
-async def get_current_user(db: Session = Depends(settings.get_db), token: str = Depends(settings.oauth2_scheme)) -> User:
+async def get_current_user(db: Session = Depends(settings.get_db)) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail='Could not validate credentials',

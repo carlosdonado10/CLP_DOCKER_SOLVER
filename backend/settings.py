@@ -1,7 +1,7 @@
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 import os
 
 base = declarative_base()
@@ -20,12 +20,12 @@ def create_db():
     host = os.getenv('db_host')
     port = str(os.getenv('db_port'))
     db_name = os.getenv('db_name')
-    connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}?sslmode=require'
+    connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}'
 
     engine = create_engine(connection_string)
 
     # Tables are already there :)
-    # base.metadata.create_all(engine)
+    base.metadata.create_all(engine)
     session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
     return session

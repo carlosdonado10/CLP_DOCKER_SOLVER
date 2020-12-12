@@ -86,6 +86,7 @@ def make_app():
 
 app = make_app()
 
+
 if __name__ == '__main__':
     import uvicorn
     _ = settings.create_db()

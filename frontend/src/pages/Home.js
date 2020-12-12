@@ -36,6 +36,7 @@ class Home extends Component {
             solution: solution
         })
         this.props.solutionService.getSolutionBoxes(solution.id).then(Axios.spread((...responses) => {
+            debugger
             this.setState({
                 boxes: responses[0].data,
                 container: responses[1].data,

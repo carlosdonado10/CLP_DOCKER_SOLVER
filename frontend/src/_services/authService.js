@@ -35,7 +35,6 @@ class AuthService{
 
     register(state, username, password, history){
         console.log(`http://localhost:8080/users`);
-        debugger;
         Axios.post(`http://localhost:8080/users`,
            {
                 username: state.username,

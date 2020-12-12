@@ -47,11 +47,11 @@ class AllocatedBox(BaseClass):
         router = APIRouter()
 
         @router.get('/{solution_id}', response_model=List[cls])
-        def get_by_scenario_id(solution_id: int, db: Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def get_by_scenario_id(solution_id: int, db: Session = db):
             return [cls.from_orm(box) for box in db.query(cls.model()).filter(cls.model().solution_id == solution_id).all()]
 
         @router.get('/summary/{solution_id}')
-        def get_summary(solution_id: int, db:Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def get_summary(solution_id: int, db:Session = db):
             allocated_boxes = pd.DataFrame(
                 [
                     cls.from_orm(box).dict()
@@ -65,33 +65,27 @@ class AllocatedBox(BaseClass):
                 ]
             )
 
-            number_by_type = allocated_boxes.groupby('type')
-            number_by_type = number_by_type.agg({
-                'color': statistics.mode,
-            })
+            allocated_number_by_type = allocated_boxes['color'].value_counts().reset_index()
+            allocated_number_by_type.index = requested_boxes['name'].values
+            allocated_number_by_type.columns = ['color', 'allocated']
+            requested_number_by_type = pd.DataFrame(requested_boxes['numBoxes'].values, index=requested_boxes['name'].values, columns=['requested'])
+            allocated_number_by_type['requested'] = requested_number_by_type['requested']
 
-            number_by_type = pd.DataFrame(parse_list(number_by_type['color'].tolist()), index=number_by_type.index).reset_index()
-
-            df_compare = pd.merge(number_by_type, requested_boxes, left_on='type', right_on='name', how='right').loc[:, ['name', 'numBoxes', 1, 0]]
-            df_compare.columns = ['name', 'requested', 'allocated', 'color']
-            df_compare['requested'] = df_compare['requested'].fillna(0)
-            df_compare['color'] = df_compare['color'].fillna(pd.Series([hex_to_rgb('#FFFFFF')]*df_compare.shape[0], index=df_compare.index))
-            df_compare.fillna(0, inplace=True)
-
-
-            return df_compare.to_dict(orient='records')
+            return to_rgb(allocated_number_by_type).to_dict(orient='records')
 
         return router
 
 
-def parse_list(list):
-    ret = []
-    for element in list:
-        try:
-            ret.append([hex_to_rgb(element.mode[0]), element.count[0]])
-        except:
-            ret.append([hex_to_rgb('#FFFFFF'), None])
-    return ret
+def to_rgb(df: pd.DataFrame) -> pd.DataFrame:
+    color = []
+
+    for row in df.itertuples():
+        color.append(hex_to_rgb(row.color))
+
+    df['color'] = color
+    return df
+
+
 
 
 def hex_to_rgb(value):

@@ -27,7 +27,7 @@ class Container(BaseClass):
         router = APIRouter()
 
         @router.get('/{solution_id}')
-        def get_container_by_solution_id(solution_id: int, db: Session = db, token: str = Depends(settings.oauth2_scheme)):
+        def get_container_by_solution_id(solution_id: int, db: Session = db):
             return cls.from_orm(db.query(cls.model()).filter(cls.model().solution_id == solution_id).first())
 
         return router

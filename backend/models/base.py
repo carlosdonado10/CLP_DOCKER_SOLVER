@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 
 class BaseClass(BaseModel):
-    id: Optional[int]
+    id: Optional[int] = 1
 
     class Config:
         orm_mode = True

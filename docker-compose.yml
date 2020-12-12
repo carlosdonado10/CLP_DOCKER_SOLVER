@@ -15,7 +15,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     command: bash -c "
-        gunicorn -k uvicorn.workers.UvicornWorker backend.main:app --env user="postgres" --env password="postgres" --env host="db" --env port="54321" --env db_name="postgres" --bind=0.0.0.0:8080
+        gunicorn -k uvicorn.workers.UvicornWorker backend.main:app --env db_user="postgres" --env db_password="postgres" --env db_host="db" --env db_port="5432" --env db_name="postgres" --bind=0.0.0.0:8080
       "
     volumes:
       - ./backend/:/backend

@@ -10,9 +10,6 @@ class SummaryTable extends Component {
         }
     }
 
-
-
-
     renderRow(row, i){
         return (
             <tr>
